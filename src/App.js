@@ -1,25 +1,54 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+} from "react-router-dom";
+import "./App.css"
+import Organisation from "./Organisation.js"
 
-function App() {
+export default function App() {
+  const [date, setDate] = useState(0);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div id="app_div">
+        <div id='left_menu'>
+
+          <ul>
+            <li>
+              <Link to="/organisation/2020">2020</Link>
+            </li>
+            <li>
+              <Link to="/organisation/2021">2021</Link>
+            </li>
+            <li>
+              <Link to="/organisation/2022">2022</Link>
+            </li>
+            <li>
+              Current date: {date}
+            </li>
+          </ul>
+        </div>
+
+        <div id="right_frame">
+          <Switch>
+            <Route path="/Organisation/:day">
+              <Organisation setDate={setDate}></Organisation>
+            </Route>
+            <Route path="/Organisation">
+              <Organisation setDate={setDate}></Organisation>
+            </Route>
+            <Route path="/">
+              <Home />
+            </Route>
+          </Switch>
+        </div>
+      </div>
+    </Router>
   );
 }
 
-export default App;
+function Home() {
+  return <h2>Home</h2>;
+}
